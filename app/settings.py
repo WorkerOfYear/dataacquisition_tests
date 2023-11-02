@@ -38,12 +38,17 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # local
     "customadmin.apps.CustomadminConfig",
+    # third
+    "debug_toolbar",
+    "bootstrap5",
 ]
 
 AUTH_USER_MODEL = "customadmin.CustomUser"
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -132,5 +137,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_REDIRECT_URL = "customadmin:dashboard"
 LOGOUT_REDIRECT_URL = "customadmin:dashboard"
-# LOGIN_URL = 'login'
+LOGIN_URL = "customadmin:login"
 # LOGOUT_URL = 'logout'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
