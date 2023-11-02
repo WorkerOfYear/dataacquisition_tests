@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load dashboard_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="cards">
+
+        <div class="users-card">
+            <div class="card-header">
+                <h1>
+                    Users <span class="secondary-text">(total count: {{users|length}})</span>
+                </h1>
+                <div class="dropdown-wrapper">
+                    <button class="dropdownButton">select fields</button>
+                    <form id="form1" class="dropdownMenu" method="POST" action="{% url 'customadmin:dashboard' %}">
+                        {% csrf_token %}
+                        <select name="user_selected_fields" multiple>
+                            {% for field in user_allfields %}
+                            <option>{{field}}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="item_selected_fields" style="display: none;" multiple>
+                            {% for field in item_fields %}
+                            <option selected>{{field}}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <table class="users-table">
+                <tr>
+                    {% for field in user_fields %}
+                    <th>{{field}}</th>
+                    {% endfor %}
+                </tr>
+                {% for user in users %}
+                {% render_row user user_fields %}
+                {% endfor %}
+            </table>
+        </div>
+
+        <div class="items-card">
+            <div class="card-header">
+                <h1>
+                    Items <span class="secondary-text">(total count: {{items|length}})</span>
+                </h1>
+                <div class="dropdown-wrapper">
+                    <button class="dropdownButton">select fields</button>
+                    <form id="form2" class="dropdownMenu" method="POST" action="{% url 'customadmin:dashboard' %}">
+                        {% csrf_token %}
+                        <select name="item_selected_fields" multiple>
+                            {% for field in item_allfields %}
+                            <option>{{field}}</option>
+                            {% endfor %}
+                        </select>
+                        <select name="user_selected_fields" style="display: none;" multiple>
+                            {% for field in user_fields %}
+                            <option selected>{{field}}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <table class="items-table">
+                <tr>
+                    {% for field in item_fields %}
+                    <th>{{field}}</th>
+                    {% endfor %}
+                </tr>
+                {% for item in items %}
+                {% render_row item item_fields %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/script.js' %}"></script>
+{% endblock %}

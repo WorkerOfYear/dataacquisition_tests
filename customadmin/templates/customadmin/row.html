@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+<tr>
+    {% for key, value in data.items %}
+    <td>{{value}}</td>
+    {% endfor %}
+
+    <td class="invis-td">
+        <form method="get" action="{% url 'customadmin:edit-object' object.id object.get_classname %}">
+            {% csrf_token %}
+            <button class="edit-btn" type="submit"><img style="width: 20px;" src="{% static 'images/edit.png' %}" alt=""></button>
+        </form>
+    </td>
+    <td class="invis-td">
+        <form method="get" action="{% url 'customadmin:delete-object' object.id object.get_classname %}">
+            {% csrf_token %}
+            <button class="delete-btn" type="submit"><img style="width: 20px;" src="{% static 'images/delete.png' %}" alt=""></button>
+        </form>
+    </td>
+    {% if object.get_classname == 'CustomUser' %}
+    <td class="invis-td">
+        <form method="get" action="{% url 'customadmin:create-user' %}">
+            {% csrf_token %}
+            <button class="create-btn" type="submit"><img style="width: 20px;" src="{% static 'images/plus.png' %}"
+                    alt=""></button>
+        </form>
+    </td>
+    {% endif %}
+    {% if object.get_classname == 'Item' %}
+    <td class="invis-td">
+        <form method="get" action="{% url 'customadmin:create-item' %}">
+            {% csrf_token %}
+            <button class="create-btn" type="submit"><img style="width: 20px;" src="{% static 'images/plus.png' %}"
+                    alt=""></button>
+        </form>
+    </td>
+    {% endif %}
+</tr>
+{% endblock %}
