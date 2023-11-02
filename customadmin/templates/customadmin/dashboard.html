@@ -35,9 +35,19 @@
                     <th>{{field}}</th>
                     {% endfor %}
                 </tr>
+                {% if users|length > 0 %}
                 {% for user in users %}
                 {% render_row user user_fields %}
                 {% endfor %}
+                {% else %}
+                <td class="invis-td">
+                    <form method="get" action="{% url 'customadmin:create-user' %}">
+                        {% csrf_token %}
+                        <button class="create-btn" type="submit"><img style="width: 20px;"
+                                src="{% static 'images/plus.png' %}" alt=""></button>
+                    </form>
+                </td>
+                {% endif %}
             </table>
         </div>
 
@@ -70,9 +80,20 @@
                     <th>{{field}}</th>
                     {% endfor %}
                 </tr>
+                {% if items|length > 0 %}
                 {% for item in items %}
                 {% render_row item item_fields %}
                 {% endfor %}
+                {% else %}
+                <td class="invis-td">
+                    <form method="get" action="{% url 'customadmin:create-item' %}">
+                        {% csrf_token %}
+                        <button class="create-btn" type="submit"><img style="width: 20px;"
+                                src="{% static 'images/plus.png' %}" alt=""></button>
+                    </form>
+                </td>
+                {% endif %}
+
             </table>
         </div>
     </div>

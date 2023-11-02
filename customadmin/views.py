@@ -79,7 +79,7 @@ def dashboard(request):
         user_selected_fields = None
         item_selected_fields = None
 
-    user_white_list = ["username"]
+    user_white_list = ["username", "is_superuser"]
     user_black_list = ["logentry", "item"]
     abstractuser_fields = AbstractUser._meta.get_fields()
     abstractuser_fields = list(map(lambda field: field.name, abstractuser_fields))
